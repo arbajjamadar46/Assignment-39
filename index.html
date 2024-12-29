@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #003D5B;
+        }
+        h1 {
+            color: #fff;
+            font-size: 3em;
+            font-weight: bold;
+            margin: 30px;
+        }
+        p {
+            color: #fff;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin: 10px;
+        }
+
+        .row {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .board {
+            background-color: #30638E;
+            box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+            padding: 10px;
+            margin: 20px;
+            height: fit-content;
+            width: fit-content;
+        }
+
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: #fff;
+            margin: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3.5em;
+            border-radius: 8px;
+        }
+        .box:hover {
+            box-shadow: 2px 2px 15px 0 rgba(0, 0, 0, 1);
+            cursor: pointer;
+            transition: all 0.4s ease;
+            transform: scale(1.04);
+
+        }
+        button {
+            background-color: #fff;
+            color: #003D5B;
+            font-size: 1.5em;
+            font-weight: bold;
+            width: 150px;
+            height: 50px;
+            margin-top: 30px;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            border: none;
+            box-shadow: 2px 2px 10px 0 rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Tic Tac Toe</h1>
+    <p>Current player: <span id="current-player">X</span></p>
+    <div class="board">
+        <div class="row">
+            <div class="box" onclick="selectBox(0)">0</div>
+            <div class="box" onclick="selectBox(1)">1</div>
+            <div class="box" onclick="selectBox(2)">2</div>
+        </div>
+        <div class="row">
+            <div class="box" onclick="selectBox(3)">3</div>
+            <div class="box" onclick="selectBox(4)">4</div>
+            <div class="box" onclick="selectBox(5)">5</div>
+        </div>
+        <div class="row">
+            <div class="box" onclick="selectBox(6)">6</div>
+            <div class="box" onclick="selectBox(7)">7</div>
+            <div class="box" onclick="selectBox(8)">8</div>
+        </div>
+    </div>
+    <button onclick="resetBoard()" id="reset-button">Reset</button>
+
+    <script>
+        const board = [-1,-1,-1,-1,-1,-1,-1,-1,-1];
+        let currentPlayer = 'X';
+        function renderBoard() {
+            const allboxes = document.querySelectorAll('.box');
+
+            allboxes.forEach((box,i) => {
+                if(board[i] === "X"){
+                    box.innerHTML = "X";
+                }
+                else if(board[i] === "O"){
+                    box.innerHTML = "O";
+                }
+                else{
+                    box.innerHTML = "";
+                }
+            })
+        }
+        renderBoard();
+        function selectBox(boxNumber) {
+
+            if(board[boxNumber] === -1){
+                board[boxNumber] = currentPlayer;
+                renderBoard();
+            }
+            else{
+                alert("Box already selected");
+            }
+            if(currentPlayer === 'X'){
+                currentPlayer = 'O';
+            }
+            else{
+                currentPlayer = 'X';
+            }
+
+            const currentPlayerSpan = document.getElementById('current-player');
+            currentPlayerSpan.innerHTML = currentPlayer;
+            checkWin();
+        }
+        function resetBoard(){
+            board.fill(-1);
+            renderBoard();
+            currentPlayer = 'X';
+            const currentPlayerSpan = document.getElementById('current-player');
+            currentPlayerSpan.innerHTML = currentPlayer;
+        }
+        function isPlayerWin(places, player) {
+            if(board[places[0]] === player && board[places[1]] === player && board[places[2]] === player){
+                return true;
+            }
+            return false;
+        }
+        
+
+
+        function checkWin(){
+            if(isPlayerWin([0,1,2], 'X')){
+                alert("Player X wins!");
+            }else if(isPlayerWin([3,4,5], 'X')){
+                alert("Player X wins!");
+            }else if(isPlayerWin([6,7,8], 'X')){
+                alert("Player X wins!");
+            }else if(isPlayerWin([0,3,6], 'X')){
+                alert("Player X wins!");
+            }else if(isPlayerWin([1,4,7], 'X')){
+                alert("Player X wins!");
+            }else if(isPlayerWin([2,5,8], 'X')){
+                alert("Player X wins!");
+            }else if(isPlayerWin([0,4,8], 'X')){
+                alert("Player X wins!");
+            }else if(isPlayerWin([2,4,6], 'X')){
+                alert("Player X wins!");
+            }
+
+            if(isPlayerWin([0,1,2], 'O')){
+                alert("Player O wins!");
+            }else if(isPlayerWin([3,4,5], 'O')){
+                alert("Player O wins!");
+            }else if(isPlayerWin([6,7,8], 'O')){
+                alert("Player O wins!");
+            }else if(isPlayerWin([0,3,6], 'O')){
+                alert("Player O wins!");
+            }else if(isPlayerWin([1,4,7], 'O')){
+                alert("Player O wins!");
+            }else if(isPlayerWin([2,5,8], 'O')){
+                alert("Player O wins!");
+            }else if(isPlayerWin([0,4,8], 'O')){
+                alert("Player O wins!");
+            }else if(isPlayerWin([2,4,6], 'O')){
+                alert("Player O wins!");
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>
